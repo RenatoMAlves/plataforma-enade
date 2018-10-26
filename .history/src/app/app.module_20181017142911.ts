@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { BarraTopoComponent } from './barra-topo/barra-topo.component';
-import { ResultadosService } from './services/resultados.service';
 import { FooterComponent } from './footer/footer.component';
 import { AppRoutingModule } from './app.routing.module';
 import { InicioComponent } from './inicio/inicio.component';
@@ -21,7 +20,7 @@ import { ResultadosModule } from './resultados/resultados.module';
     ResultadosModule,
     AppRoutingModule
   ],
-  providers: [ResultadosService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
