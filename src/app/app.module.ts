@@ -8,6 +8,7 @@ import { FooterComponent } from './footer/footer.component';
 import { AppRoutingModule } from './app.routing.module';
 import { InicioComponent } from './inicio/inicio.component';
 import { ResultadosModule } from './resultados/resultados.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { ResultadosModule } from './resultados/resultados.module';
     InicioComponent,
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     ResultadosModule,
     AppRoutingModule

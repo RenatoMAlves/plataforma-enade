@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ResultadosService } from '../../services/resultados.service';
 
 @Component({
   selector: 'app-resultados',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ResultadosComponent implements OnInit {
 
-  constructor() { }
+  constructor(private resultadosService: ResultadosService) { }
 
   ngOnInit() {
+    this.resultadosService.getResult().subscribe(
+      (data) => {
+        console.log(data);
+      },
+      (error) => {
+        console.log(error);
+        
+      }
+    )
   }
 
 }
