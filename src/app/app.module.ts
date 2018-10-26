@@ -4,11 +4,13 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BarraTopoComponent } from './barra-topo/barra-topo.component';
 import { ResultadosService } from './services/resultados.service';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BarraTopoComponent
+    BarraTopoComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule
