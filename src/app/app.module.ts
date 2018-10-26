@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { BarraTopoComponent } from './barra-topo/barra-topo.component';
+import { ResultadosService } from './services/resultados.service';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,7 @@ import { BarraTopoComponent } from './barra-topo/barra-topo.component';
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [ResultadosService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
