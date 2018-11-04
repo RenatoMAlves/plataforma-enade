@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BarraTopoComponent implements OnInit {
 
+  navToggle: boolean = false;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  toggleNav(){
+    (this.navToggle) ? this.navToggle = false : this.navToggle = true;  
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ResultadosService } from '../../services/resultados.service';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-resultados',
@@ -9,10 +10,9 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 })
 export class ResultadosComponent implements OnInit {
 
-  private ano:any;
-  private id_area : any;
-  private id_curso : any;
-  private dadosGrafico: any[];
+  private dadosGraficoAcertos: any[];
+  private dadosGraficoErros: any[];
+  private dadosGraficoBranco: any[];
   concluido: boolean = false;
 
   // options
@@ -25,32 +25,28 @@ export class ResultadosComponent implements OnInit {
   xAxisLabel = 'Porcentagem de Acertos';
   showYAxisLabel = true;
   yAxisLabel = 'Volume de Incidências';
-
-  colorScheme = {
-    domain: ['#5AA454', '#A4A5D6', '#C4D5A2', '#AAAAAA']
+  autoScale = true;
+  colorSchemeAcertos = {
+    domain: ['#B5FFBD', '#6AD178', '#22772C', '#0B4211', '#102813']
+  };
+  colorSchemeErros = {
+    domain: ['#D6283A', '#A80818', '#930211', '#3F0D12', '#490007']
+  };
+  colorSchemeBranco = {
+    domain: ['#98C1D9', '#6997B2', '#39627A', '#374C59', '#172026']
   };
 
-  single: any[];
-
+  // Dados para os gráficos
   multi: any[];
 
-  // line, area
-  autoScale = true;
-
+  formFiltro = new FormGroup({
+    ano: new FormControl("2008", [Validators.required]),
+    curso: new FormControl("1", [Validators.required]),
+    area: new FormControl("1", [Validators.required]),
+  });
 
   constructor(private resultadosService: ResultadosService) {
-    this.getDataByAnoCursoAndArea();
-  }
-
-  ngOnInit() {
-  }
-
-  getDataByAnoCursoAndArea(){
-    this.ano = 2008;
-    this.id_area = 6;
-    this.id_curso = 1;
-
-    this.dadosGrafico = [
+    this.dadosGraficoAcertos = [
       {
         "name": "Norte",
         "series": []
@@ -72,13 +68,67 @@ export class ResultadosComponent implements OnInit {
         "series": []
       },
     ]
+    this.dadosGraficoErros = [
+      {
+        "name": "Norte",
+        "series": []
+      },
+      {
+        "name": "Nordeste",
+        "series": []
+      },
+      {
+        "name": "Centro-Oeste",
+        "series": []
+      },
+      {
+        "name": "Sudeste",
+        "series": []
+      },
+      {
+        "name": "Sul",
+        "series": []
+      },
+    ]
+    this.dadosGraficoBranco = [
+      {
+        "name": "Norte",
+        "series": []
+      },
+      {
+        "name": "Nordeste",
+        "series": []
+      },
+      {
+        "name": "Centro-Oeste",
+        "series": []
+      },
+      {
+        "name": "Sudeste",
+        "series": []
+      },
+      {
+        "name": "Sul",
+        "series": []
+      },
+    ]
+  }
 
-    this.resultadosService.getResultByAnoCursoAndArea(this.ano, this.id_curso,this.id_area).subscribe(
+  ngOnInit() {
+    
+  }
+
+  getDataByAnoCursoAndArea(){
+    this.concluido = false;
+
+    this.resultadosService.getResultByAnoCursoAndArea(this.formFiltro.value.ano, this.formFiltro.value.curso, this.formFiltro.value.area).subscribe(
       (data) => {
+        console.log(data);
         data.forEach(element => {
           this.graficoAcertos(element.id_regiao, element.porcentagem_certas, element.volume_incidencias);
+          this.graficoErros(element.id_regiao, element.porcentagem_erradas, element.volume_incidencias);
+          this.graficoBranco(element.id_regiao, element.porcentagem_branco_invalida, element.volume_incidencias);
         });
-        console.log(this.dadosGrafico);
         this.concluido = true;
       },
       (error) => {
@@ -90,12 +140,38 @@ export class ResultadosComponent implements OnInit {
   }
 
   graficoAcertos(regiao, porcentagem, volume_incidencias){
-    var index = this.dadosGrafico[regiao-1].series.findIndex(serie => serie.name === porcentagem + "%");
+    var index = this.dadosGraficoAcertos[regiao-1].series.findIndex(serie => serie.name === porcentagem + "%");
     if(index !== -1){
-      this.dadosGrafico[regiao-1].series[index].value =  this.dadosGrafico[regiao-1].series[index].value + volume_incidencias
+      this.dadosGraficoAcertos[regiao-1].series[index].value =  this.dadosGraficoAcertos[regiao-1].series[index].value + volume_incidencias
     }
     else {
-      this.dadosGrafico[regiao-1].series.push({
+      this.dadosGraficoAcertos[regiao-1].series.push({
+        "name": String(porcentagem) + "%",
+        "value": volume_incidencias
+      });
+    }
+  }
+
+  graficoErros(regiao, porcentagem, volume_incidencias){
+    var index = this.dadosGraficoErros[regiao-1].series.findIndex(serie => serie.name === porcentagem + "%");
+    if(index !== -1){
+      this.dadosGraficoErros[regiao-1].series[index].value =  this.dadosGraficoErros[regiao-1].series[index].value + volume_incidencias
+    }
+    else {
+      this.dadosGraficoErros[regiao-1].series.push({
+        "name": String(porcentagem) + "%",
+        "value": volume_incidencias
+      });
+    }
+  }
+
+  graficoBranco(regiao, porcentagem, volume_incidencias){
+    var index = this.dadosGraficoBranco[regiao-1].series.findIndex(serie => serie.name === porcentagem + "%");
+    if(index !== -1){
+      this.dadosGraficoBranco[regiao-1].series[index].value =  this.dadosGraficoBranco[regiao-1].series[index].value + volume_incidencias
+    }
+    else {
+      this.dadosGraficoBranco[regiao-1].series.push({
         "name": String(porcentagem) + "%",
         "value": volume_incidencias
       });
