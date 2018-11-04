@@ -19,11 +19,10 @@ export class ResultadosService {
 
   }
 
-  public getResult(): Observable<any> {
-    return this.http.get(Endpoinst.getResult(), {headers: this.headers}).pipe(
+  public getResultByAnoCursoAndArea(ano, id_curso, id_area): Observable<any> {
+    return this.http.get(Endpoinst.getResultByAnoCursoAndArea(ano, id_curso, id_area), {headers: this.headers}).pipe(
       tap(
         data => {
-          console.log('teste');
           return {... data};
         },
         error => {

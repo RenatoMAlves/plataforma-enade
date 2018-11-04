@@ -28,7 +28,11 @@ export class Endpoinst {
         return `${API}/resultados/${sigla}`;
     }
 
-    public static getResultByCursoAndArea = (id_curso, id_area) => {
-        return `${API}/resultados/${id_curso}/${id_area}`;
+    public static getResultByAnoCurso = (ano, id_curso) => {
+        return `${API}/resultados/${ano}/${id_curso}`;
+    }
+
+    public static getResultByAnoCursoAndArea = (ano, id_curso, id_area) => {
+        return `${API}/resultados/${ano}/${id_curso}/${id_area}`;
     }
 }
