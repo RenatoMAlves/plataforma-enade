@@ -43,6 +43,9 @@ export class ResultadosComponent implements OnInit {
 
   getDataByAnoCursoAndArea(){
     this.concluido = false;
+    this.dadosGraficoAcertos = this.iniciaVarGrafico();
+    this.dadosGraficoErros = this.iniciaVarGrafico();
+    this.dadosGraficoBranco = this.iniciaVarGrafico();
 
     this.resultadosService.getResultByAnoCursoAndArea(this.formFiltro.value.ano, this.formFiltro.value.curso, this.formFiltro.value.area).subscribe(
       (data) => {

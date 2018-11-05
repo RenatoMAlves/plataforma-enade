@@ -15,11 +15,10 @@ export class ResultadosService {
     this.headers = new HttpHeaders()
       .set("Accept", "application/json")
       .set("Content-type", "application/json")
-      .set("Access-Control-Allow-Origin", "*")
-
   }
 
   public getResultByAnoCursoAndArea(ano, id_curso, id_area): Observable<any> {
+    console.log(this.headers);
     return this.http.get(Endpoinst.getResultByAnoCursoAndArea(ano, id_curso, id_area), {headers: this.headers}).pipe(
       tap(
         data => {
