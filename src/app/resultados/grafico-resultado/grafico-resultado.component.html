@@ -1,0 +1,18 @@
+<div class="container my-5 h-500">
+  <ngx-charts-bar-vertical-2d
+    [scheme]="colorScheme"
+    [results]="dadosResultado"
+    [gradient]="gradient"
+    [xAxis]="showXAxis"
+    [yAxis]="showYAxis"
+    [legend]="showLegend"
+    [showDataLabel]="true"
+    [legendTitle]="legendTitle"
+    [roundDomains]="true"
+    [showXAxisLabel]="showXAxisLabel"
+    [showYAxisLabel]="showYAxisLabel"
+    [xAxisLabel]="xAxisLabel"
+    [yAxisLabel]="yAxisLabel"
+    (select)="onSelect($event)">
+  </ngx-charts-bar-vertical-2d>
+</div>

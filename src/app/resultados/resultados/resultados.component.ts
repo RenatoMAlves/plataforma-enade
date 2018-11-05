@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ResultadosService } from '../../services/resultados.service';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -15,29 +14,15 @@ export class ResultadosComponent implements OnInit {
   private dadosGraficoBranco: any[];
   concluido: boolean = false;
 
-  // options
-  showXAxis = true;
-  showYAxis = true;
-  gradient = false;
-  showLegend = true;
-  showXAxisLabel = true;
-  legendTitle = "Ano: 2008";
-  xAxisLabel = 'Porcentagem de Acertos';
-  showYAxisLabel = true;
-  yAxisLabel = 'Volume de Incidências';
-  autoScale = true;
   colorSchemeAcertos = {
-    domain: ['#B5FFBD', '#6AD178', '#22772C', '#0B4211', '#102813']
+    domain: ['#23C675', '#7CB297', '#32895E', '#289B61', '#165B38', '#0C3A05', '#0B4226', '#1F3F2F', '#0D110F']
   };
   colorSchemeErros = {
-    domain: ['#D6283A', '#A80818', '#930211', '#3F0D12', '#490007']
+    domain: ['#DD6363', '#D6283A', '#FF0707', '#C43E3E', '#D00000', '#A80818', '#930211', '#3F0D12', '#490007']
   };
   colorSchemeBranco = {
-    domain: ['#98C1D9', '#6997B2', '#39627A', '#374C59', '#172026']
+    domain: ['#BCD3E0', '#98C1D9', '#6997B2', '#297B93', '#5688A5', '#39627A', '#374C59', '#112633', '#172026']
   };
-
-  // Dados para os gráficos
-  multi: any[];
 
   formFiltro = new FormGroup({
     ano: new FormControl("2008", [Validators.required]),
@@ -123,7 +108,6 @@ export class ResultadosComponent implements OnInit {
 
     this.resultadosService.getResultByAnoCursoAndArea(this.formFiltro.value.ano, this.formFiltro.value.curso, this.formFiltro.value.area).subscribe(
       (data) => {
-        console.log(data);
         data.forEach(element => {
           this.graficoAcertos(element.id_regiao, element.porcentagem_certas, element.volume_incidencias);
           this.graficoErros(element.id_regiao, element.porcentagem_erradas, element.volume_incidencias);

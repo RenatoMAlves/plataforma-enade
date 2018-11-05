@@ -49,53 +49,6 @@
   </div>
 </div>
 
-<div class="container my-5 h-500">
-  <ngx-charts-bar-vertical-2d *ngIf="concluido"
-    [scheme]="colorSchemeAcertos"
-    [results]="dadosGraficoAcertos"
-    [gradient]="gradient"
-    [xAxis]="showXAxis"
-    [yAxis]="showYAxis"
-    [legend]="showLegend"
-    [legendTitle]="legendTitle"
-    [showXAxisLabel]="showXAxisLabel"
-    [showYAxisLabel]="showYAxisLabel"
-    [xAxisLabel]="xAxisLabel"
-    [yAxisLabel]="yAxisLabel"
-    (select)="onSelect($event)">
-  </ngx-charts-bar-vertical-2d>
-</div>
-
-<div class="container my-5 h-500">
-  <ngx-charts-bar-vertical-2d *ngIf="concluido"
-    [scheme]="colorSchemeErros"
-    [results]="dadosGraficoErros"
-    [gradient]="gradient"
-    [xAxis]="showXAxis"
-    [yAxis]="showYAxis"
-    [legend]="showLegend"
-    [legendTitle]="legendTitle"
-    [showXAxisLabel]="showXAxisLabel"
-    [showYAxisLabel]="showYAxisLabel"
-    [xAxisLabel]="xAxisLabel"
-    [yAxisLabel]="yAxisLabel"
-    (select)="onSelect($event)">
-  </ngx-charts-bar-vertical-2d>
-</div>
-
-<div class="container my-5 h-500">
-  <ngx-charts-bar-vertical-2d *ngIf="concluido"
-    [scheme]="colorSchemeBranco"
-    [results]="dadosGraficoBranco"
-    [gradient]="gradient"
-    [xAxis]="showXAxis"
-    [yAxis]="showYAxis"
-    [legend]="showLegend"
-    [legendTitle]="legendTitle"
-    [showXAxisLabel]="showXAxisLabel"
-    [showYAxisLabel]="showYAxisLabel"
-    [xAxisLabel]="xAxisLabel"
-    [yAxisLabel]="yAxisLabel"
-    (select)="onSelect($event)">
-  </ngx-charts-bar-vertical-2d>
-</div>
+<app-grafico-resultado *ngIf="concluido" [ano]="formFiltro.value.ano" label="Porcentagem de Acertos" [dadosResultado]="dadosGraficoAcertos" [cores]="colorSchemeAcertos"></app-grafico-resultado>
+<app-grafico-resultado *ngIf="concluido" [ano]="formFiltro.value.ano" label="Porcentagem de Erros" [dadosResultado]="dadosGraficoErros" [cores]="colorSchemeErros"></app-grafico-resultado>
+<app-grafico-resultado *ngIf="concluido" [ano]="formFiltro.value.ano" label="Porcentagem de Brancos" [dadosResultado]="dadosGraficoBranco" [cores]="colorSchemeBranco"></app-grafico-resultado>
