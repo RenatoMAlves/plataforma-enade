@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row mt-3 border-bottom">
+  <div class="row my-3">
     <form [formGroup]="formFiltro" (ngSubmit)="getDataByAnoCursoAndArea()">
       <div class="col-md-2 mb-3">
         <label for="Ano">Ano</label>
@@ -16,39 +16,52 @@
           <option value=2>Sistemas de Informação</option>
           <option value=3>Engenharia da Computação</option>
         </select>
-        <div class="invalid-feedback">
-          Please provide a valid state.
-        </div>
       </div>
       <div class="col-md-4 mb-3">
-          <label for="area">Area</label>
-          <select class="custom-select d-block w-100" id="area" required="" formControlName="area">
-            <option value=1 selected>Engenharia de Software</option>
-            <option value=2>Bancos de dados</option>
-            <option value=3>Lógica</option>
-            <option value=4>Tópicos Avançados de Engenharia</option>
-            <option value=5>Arquitetura de Computadores</option>
-            <option value=6>Estruturas de dados</option>
-            <option value=7>Sistemas Operacionais</option>
-            <option value=8>Teorias da Computaçao</option>
-            <option value=9>Sistemas de Informação</option>
-            <option value=10>Redes de Computadores</option>
-            <option value=11>Inteligência Artificial</option>
-            <option value=12>Computação Gráfica</option>
-          </select>
-          <div class="invalid-feedback">
-            Please provide a valid state.
-          </div>
+        <label for="area">Area</label>
+        <select class="custom-select d-block w-100" id="area" required="" formControlName="area">
+          <option value=1 selected>Engenharia de Software</option>
+          <option value=2>Bancos de dados</option>
+          <option value=3>Lógica</option>
+          <option value=4>Tópicos Avançados de Engenharia</option>
+          <option value=5>Arquitetura de Computadores</option>
+          <option value=6>Estruturas de dados</option>
+          <option value=7>Sistemas Operacionais</option>
+          <option value=8>Teorias da Computaçao</option>
+          <option value=9>Sistemas de Informação</option>
+          <option value=10>Redes de Computadores</option>
+          <option value=11>Inteligência Artificial</option>
+          <option value=12>Computação Gráfica</option>
+        </select>
       </div>
       <div class="col-md-2 mb-3">
         <button type="submit" class="btn btn-info btn-grafico" [disabled]="!formFiltro.valid">
-          Gerar gráfico
+          Buscar Resultados
         </button>
       </div>
     </form>
   </div>
-</div>
 
-<app-grafico-resultado *ngIf="concluido" [ano]="formFiltro.value.ano" label="Porcentagem de Acertos" [dadosResultado]="dadosGraficoAcertos" [cores]="colorSchemeAcertos"></app-grafico-resultado>
-<app-grafico-resultado *ngIf="concluido" [ano]="formFiltro.value.ano" label="Porcentagem de Erros" [dadosResultado]="dadosGraficoErros" [cores]="colorSchemeErros"></app-grafico-resultado>
-<app-grafico-resultado *ngIf="concluido" [ano]="formFiltro.value.ano" label="Porcentagem de Brancos" [dadosResultado]="dadosGraficoBranco" [cores]="colorSchemeBranco"></app-grafico-resultado>
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="graficos-tab" data-toggle="tab" href="#graficos" role="tab" aria-controls="graficos" aria-selected="false"><i class="fas fa-chart-bar" data-toggle="tooltip" data-placement="top" title="Gráficos de Barra"></i></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="tabela-tab" data-toggle="tab" href="#tabela" role="tab" aria-controls="tabela" aria-selected="true" ><i class="fas fa-table" data-toggle="tooltip" data-placement="top" title="Tabela de Resultados"></i></a>
+    </li>
+  </ul>
+
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active text-center" id="graficos" role="tabpanel" aria-labelledby="graficos-tab">
+      <h4 class="text-muted mt-3" *ngIf="!concluido">Não foram encontrados resultados, por favor, altere os filtros para gerar novos gráficos</h4>
+      <app-grafico-resultado *ngIf="concluido" [ano]="formFiltro.value.ano" label="Porcentagem de Acertos" [dadosResultado]="dadosGraficoAcertos" [cores]="colorSchemeAcertos"></app-grafico-resultado>
+      <app-grafico-resultado *ngIf="concluido" [ano]="formFiltro.value.ano" label="Porcentagem de Erros" [dadosResultado]="dadosGraficoErros" [cores]="colorSchemeErros"></app-grafico-resultado>
+      <app-grafico-resultado *ngIf="concluido" [ano]="formFiltro.value.ano" label="Porcentagem de Brancos" [dadosResultado]="dadosGraficoBranco" [cores]="colorSchemeBranco"></app-grafico-resultado>
+    </div>
+    <div class="tab-pane fade text-center" id="tabela" role="tabpanel" aria-labelledby="tabela-tab">
+      <h4 class="text-muted mt-3" *ngIf="!concluido">Não foram encontrados resultados, por favor, altere os filtros para gerar uma nova tabela</h4>
+      <app-tabela-resultados [dadosTotais]="dados" *ngIf="concluido"></app-tabela-resultados>
+    </div>
+  </div>
+
+</div>

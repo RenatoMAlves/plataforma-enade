@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ReactiveFormsModule } from '@angular/forms';
 import { GraficoResultadoComponent } from './grafico-resultado/grafico-resultado.component';
+import { TabelaResultadosComponent } from './tabela-resultados/tabela-resultados.component';
 
 @NgModule({
   imports: [
@@ -13,6 +14,6 @@ import { GraficoResultadoComponent } from './grafico-resultado/grafico-resultado
     BrowserAnimationsModule,
     ReactiveFormsModule
   ],
-  declarations: [ResultadosComponent, GraficoResultadoComponent]
+  declarations: [ResultadosComponent, GraficoResultadoComponent, TabelaResultadosComponent]
 })
 export class ResultadosModule { }

@@ -1,5 +1,5 @@
 <div class="pos-f-t">
-  <div class="collapse" [ngClass]="{'show': navToggle}" id="navbarToggleExternalContent">
+  <div class="collapse" id="navbarToggleExternalContent">
     <div class="bg-dark p-4">
       <h5 class="text-white h4">EnadeDM</h5>
       <span class="text-muted">Escolha seu destino! </span>
@@ -13,8 +13,8 @@
       </ul>
     </div>
   </div>
-  <nav class="navbar navbar-dark bg-dark">
-    <button class="navbar-toggler" type="button" [ngClass]="{'collapsed': !navToggle}" (click)="toggleNav()" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+  <nav class="navbar navbar-dark bg-dark border-bottom shadow-sm">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
   </nav>

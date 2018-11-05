@@ -14,8 +14,4 @@ export class BarraTopoComponent implements OnInit {
   ngOnInit() {
   }
 
-  toggleNav(){
-    (this.navToggle) ? this.navToggle = false : this.navToggle = true;  
-  }
-
 }

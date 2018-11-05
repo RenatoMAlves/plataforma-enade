@@ -1,0 +1,38 @@
+<div class="my-5">
+  <div class="table-responsive">
+    <table class="table table-hover table-lg">
+      <thead class="thead-dark">
+        <tr>
+          <th>Ano</th>
+          <th>Curso</th>
+          <th>Area</th>
+          <th>Região</th>
+          <th>Vol. Incidências</th>
+          <th>Qtd. Questões</th>
+          <th>Qtd. Certas</th>
+          <th>Qtd. Erradas</th>
+          <th>Qtd. Branco</th>
+          <th>Certas (%)</th>
+          <th>Erradas (%)</th>
+          <th>Branco (%)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cluster of dadosTotais">
+          <td>{{cluster.ano}}</td>
+          <td>{{cluster.id_curso}}</td>
+          <td>{{cluster.id_area}}</td>
+          <td>{{cluster.id_regiao}}</td>
+          <td>{{cluster.volume_incidencias}}</td>
+          <td>{{cluster.qtd_questoes}}</td>
+          <td>{{cluster.qtd_certas}}</td>
+          <td>{{cluster.qtd_erradas}}</td>
+          <td>{{cluster.qtd_branco_invalidas}}</td>
+          <td>{{cluster.porcentagem_certas}}%</td>
+          <td>{{cluster.porcentagem_erradas}}%</td>
+          <td>{{cluster.porcentagem_branco_invalida}}%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -12,6 +12,7 @@ export class ResultadosComponent implements OnInit {
   private dadosGraficoAcertos: any[];
   private dadosGraficoErros: any[];
   private dadosGraficoBranco: any[];
+  private dados: any[];
   concluido: boolean = false;
 
   colorSchemeAcertos = {
@@ -31,72 +32,9 @@ export class ResultadosComponent implements OnInit {
   });
 
   constructor(private resultadosService: ResultadosService) {
-    this.dadosGraficoAcertos = [
-      {
-        "name": "Norte",
-        "series": []
-      },
-      {
-        "name": "Nordeste",
-        "series": []
-      },
-      {
-        "name": "Centro-Oeste",
-        "series": []
-      },
-      {
-        "name": "Sudeste",
-        "series": []
-      },
-      {
-        "name": "Sul",
-        "series": []
-      },
-    ]
-    this.dadosGraficoErros = [
-      {
-        "name": "Norte",
-        "series": []
-      },
-      {
-        "name": "Nordeste",
-        "series": []
-      },
-      {
-        "name": "Centro-Oeste",
-        "series": []
-      },
-      {
-        "name": "Sudeste",
-        "series": []
-      },
-      {
-        "name": "Sul",
-        "series": []
-      },
-    ]
-    this.dadosGraficoBranco = [
-      {
-        "name": "Norte",
-        "series": []
-      },
-      {
-        "name": "Nordeste",
-        "series": []
-      },
-      {
-        "name": "Centro-Oeste",
-        "series": []
-      },
-      {
-        "name": "Sudeste",
-        "series": []
-      },
-      {
-        "name": "Sul",
-        "series": []
-      },
-    ]
+    this.dadosGraficoAcertos = this.iniciaVarGrafico();
+    this.dadosGraficoErros = this.iniciaVarGrafico();
+    this.dadosGraficoBranco = this.iniciaVarGrafico();
   }
 
   ngOnInit() {
@@ -108,12 +46,18 @@ export class ResultadosComponent implements OnInit {
 
     this.resultadosService.getResultByAnoCursoAndArea(this.formFiltro.value.ano, this.formFiltro.value.curso, this.formFiltro.value.area).subscribe(
       (data) => {
-        data.forEach(element => {
-          this.graficoAcertos(element.id_regiao, element.porcentagem_certas, element.volume_incidencias);
-          this.graficoErros(element.id_regiao, element.porcentagem_erradas, element.volume_incidencias);
-          this.graficoBranco(element.id_regiao, element.porcentagem_branco_invalida, element.volume_incidencias);
-        });
-        this.concluido = true;
+        this.dados = data;
+        if(data.length === 0){
+          this.concluido = false;
+        }
+        else{
+          data.forEach(element => {
+            this.graficoAcertos(element.id_regiao, element.porcentagem_certas, element.volume_incidencias);
+            this.graficoErros(element.id_regiao, element.porcentagem_erradas, element.volume_incidencias);
+            this.graficoBranco(element.id_regiao, element.porcentagem_branco_invalida, element.volume_incidencias);
+          });
+          this.concluido = true;
+        }
       },
       (error) => {
         console.log(error);
@@ -160,6 +104,31 @@ export class ResultadosComponent implements OnInit {
         "value": volume_incidencias
       });
     }
+  }
+
+  iniciaVarGrafico(){
+    return [
+      {
+        "name": "Norte",
+        "series": []
+      },
+      {
+        "name": "Nordeste",
+        "series": []
+      },
+      {
+        "name": "Centro-Oeste",
+        "series": []
+      },
+      {
+        "name": "Sudeste",
+        "series": []
+      },
+      {
+        "name": "Sul",
+        "series": []
+      },
+    ]
   }
 
 }
