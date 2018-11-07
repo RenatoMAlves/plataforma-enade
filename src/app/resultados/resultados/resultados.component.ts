@@ -13,6 +13,7 @@ export class ResultadosComponent implements OnInit {
   private dadosGraficoErros: any[];
   private dadosGraficoBranco: any[];
   private dados: any[];
+  private qtd_questoes: number;
   concluido: boolean = false;
 
   colorSchemeAcertos = {
@@ -50,14 +51,16 @@ export class ResultadosComponent implements OnInit {
     this.resultadosService.getResultByAnoCursoAndArea(this.formFiltro.value.ano, this.formFiltro.value.curso, this.formFiltro.value.area).subscribe(
       (data) => {
         this.dados = data;
+        console.log(data);
+        this.qtd_questoes = data[0].qtd_questoes;
         if(data.length === 0){
           this.concluido = false;
         }
         else{
           data.forEach(element => {
-            this.graficoAcertos(element.id_regiao, element.porcentagem_certas, element.volume_incidencias);
-            this.graficoErros(element.id_regiao, element.porcentagem_erradas, element.volume_incidencias);
-            this.graficoBranco(element.id_regiao, element.porcentagem_branco_invalida, element.volume_incidencias);
+            this.graficoAcertos(element.id_regiao, element.qtd_certas, element.porcentagem_certas, element.volume_incidencias);
+            this.graficoErros(element.id_regiao, element.qtd_erradas, element.porcentagem_erradas, element.volume_incidencias);
+            this.graficoBranco(element.id_regiao, element.qtd_branco_invalidas, element.porcentagem_branco_invalida, element.volume_incidencias);
           });
           this.concluido = true;
         }
@@ -70,40 +73,41 @@ export class ResultadosComponent implements OnInit {
 
   }
 
-  graficoAcertos(regiao, porcentagem, volume_incidencias){
-    var index = this.dadosGraficoAcertos[regiao-1].series.findIndex(serie => serie.name === porcentagem + "%");
+  graficoAcertos(regiao, qtd_certas, porcentagem, volume_incidencias){
+    var index = this.dadosGraficoAcertos[regiao-1].series.findIndex(serie => serie.name === qtd_certas + " (" + porcentagem + "%)");
     if(index !== -1){
       this.dadosGraficoAcertos[regiao-1].series[index].value =  this.dadosGraficoAcertos[regiao-1].series[index].value + volume_incidencias
     }
     else {
       this.dadosGraficoAcertos[regiao-1].series.push({
-        "name": String(porcentagem) + "%",
+        "name": String(qtd_certas + " (" + porcentagem + "%)"),
         "value": volume_incidencias
       });
     }
   }
 
-  graficoErros(regiao, porcentagem, volume_incidencias){
-    var index = this.dadosGraficoErros[regiao-1].series.findIndex(serie => serie.name === porcentagem + "%");
+  graficoErros(regiao, qtd_erradas, porcentagem, volume_incidencias){
+    var index = this.dadosGraficoErros[regiao-1].series.findIndex(serie => serie.name === qtd_erradas + " (" + porcentagem + "%)");
     if(index !== -1){
       this.dadosGraficoErros[regiao-1].series[index].value =  this.dadosGraficoErros[regiao-1].series[index].value + volume_incidencias
     }
     else {
       this.dadosGraficoErros[regiao-1].series.push({
-        "name": String(porcentagem) + "%",
+        "name": String(qtd_erradas + " (" + porcentagem + "%)"),
         "value": volume_incidencias
       });
     }
   }
 
-  graficoBranco(regiao, porcentagem, volume_incidencias){
-    var index = this.dadosGraficoBranco[regiao-1].series.findIndex(serie => serie.name === porcentagem + "%");
+  graficoBranco(regiao, qtd_branco_invalida, porcentagem, volume_incidencias){
+    console.log(qtd_branco_invalida);
+    var index = this.dadosGraficoBranco[regiao-1].series.findIndex(serie => serie.name ===  qtd_branco_invalida + " (" + porcentagem + "%)");
     if(index !== -1){
       this.dadosGraficoBranco[regiao-1].series[index].value =  this.dadosGraficoBranco[regiao-1].series[index].value + volume_incidencias
     }
     else {
       this.dadosGraficoBranco[regiao-1].series.push({
-        "name": String(porcentagem) + "%",
+        "name": String(qtd_branco_invalida + " (" + porcentagem + "%)"),
         "value": volume_incidencias
       });
     }
