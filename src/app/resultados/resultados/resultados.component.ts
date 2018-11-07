@@ -48,7 +48,6 @@ export class ResultadosComponent implements OnInit {
     this.resultadosService.getResultByAnoCursoAndArea(this.formFiltro.value.ano, this.formFiltro.value.curso, this.formFiltro.value.area).subscribe(
       (data) => {
         this.dados = data;
-        console.log(data[0].qtd_questoes)
         this.qtd_questoes = data[0].qtd_questoes;
         if(data.length === 0){
           this.concluido = false;
