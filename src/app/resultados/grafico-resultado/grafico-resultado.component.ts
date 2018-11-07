@@ -11,7 +11,7 @@ export class GraficoResultadoComponent implements OnInit {
   @Input('dadosResultado') dadosResultado: any;
   @Input('cores') colorScheme: any;
   @Input('label') labelX: any;
-  @Input('ano') ano: any;
+  @Input('qtd_questoes') qtd_questoes: any;
 
   // options
   showXAxis = true;
@@ -29,7 +29,7 @@ export class GraficoResultadoComponent implements OnInit {
 
   ngOnInit() {
     this.xAxisLabel = this.labelX;
-    this.legendTitle = "Ano: "+ this.ano;
+    this.legendTitle = "Qtd. de questões: "+ this.qtd_questoes;
   }
 
 }

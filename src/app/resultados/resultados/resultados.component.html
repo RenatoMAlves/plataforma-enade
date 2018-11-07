@@ -54,9 +54,9 @@
   <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active text-center" id="graficos" role="tabpanel" aria-labelledby="graficos-tab">
       <h4 class="text-muted mt-3" *ngIf="!concluido">Não foram encontrados resultados, por favor, altere os filtros para gerar novos gráficos</h4>
-      <app-grafico-resultado *ngIf="concluido" [ano]="formFiltro.value.ano" label="Porcentagem de Acertos" [dadosResultado]="dadosGraficoAcertos" [cores]="colorSchemeAcertos"></app-grafico-resultado>
-      <app-grafico-resultado *ngIf="concluido" [ano]="formFiltro.value.ano" label="Porcentagem de Erros" [dadosResultado]="dadosGraficoErros" [cores]="colorSchemeErros"></app-grafico-resultado>
-      <app-grafico-resultado *ngIf="concluido" [ano]="formFiltro.value.ano" label="Porcentagem de Brancos" [dadosResultado]="dadosGraficoBranco" [cores]="colorSchemeBranco"></app-grafico-resultado>
+      <app-grafico-resultado *ngIf="concluido" [qtd_questoes]="qtd_questoes" label="Quantidade de Acertos" [dadosResultado]="dadosGraficoAcertos" [cores]="colorSchemeAcertos"></app-grafico-resultado>
+      <app-grafico-resultado *ngIf="concluido" [qtd_questoes]="qtd_questoes" label="Quantidade de Erros" [dadosResultado]="dadosGraficoErros" [cores]="colorSchemeErros"></app-grafico-resultado>
+      <app-grafico-resultado *ngIf="concluido" [qtd_questoes]="qtd_questoes" label="Quantidade de Brancos" [dadosResultado]="dadosGraficoBranco" [cores]="colorSchemeBranco"></app-grafico-resultado>
     </div>
     <div class="tab-pane fade text-center" id="tabela" role="tabpanel" aria-labelledby="tabela-tab">
       <h4 class="text-muted mt-3" *ngIf="!concluido">Não foram encontrados resultados, por favor, altere os filtros para gerar uma nova tabela</h4>
