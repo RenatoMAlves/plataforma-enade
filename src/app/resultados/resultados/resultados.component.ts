@@ -59,6 +59,13 @@ export class ResultadosComponent implements OnInit {
             this.graficoErros(element.id_regiao, element.porcentagem_erradas, element.volume_incidencias);
             this.graficoBranco(element.id_regiao, element.porcentagem_branco_invalida, element.volume_incidencias);
           });
+          
+          for(let i =0; i<5; i++){
+            this.dadosGraficoAcertos[i].series.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+            this.dadosGraficoErros[i].series.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+            this.dadosGraficoBranco[i].series.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+          }
+
           this.concluido = true;
         }
       },
