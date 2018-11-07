@@ -33,9 +33,9 @@ export class ResultadosComponent implements OnInit {
   });
 
   constructor(private resultadosService: ResultadosService) {
-    this.dadosGraficoAcertos = this.iniciaVarGrafico();
-    this.dadosGraficoErros = this.iniciaVarGrafico();
-    this.dadosGraficoBranco = this.iniciaVarGrafico();
+    this.dadosGraficoAcertos = this.iniciaVarGraficoBarras([]);
+    this.dadosGraficoErros = this.iniciaVarGraficoBarras([]);
+    this.dadosGraficoBranco = this.iniciaVarGraficoBarras([]);
   }
 
   ngOnInit() {
@@ -44,30 +44,26 @@ export class ResultadosComponent implements OnInit {
 
   getDataByAnoCursoAndArea(){
     this.concluido = false;
-    this.dadosGraficoAcertos = this.iniciaVarGrafico();
-    this.dadosGraficoErros = this.iniciaVarGrafico();
-    this.dadosGraficoBranco = this.iniciaVarGrafico();
 
     this.resultadosService.getResultByAnoCursoAndArea(this.formFiltro.value.ano, this.formFiltro.value.curso, this.formFiltro.value.area).subscribe(
       (data) => {
         this.dados = data;
-        console.log(data);
+        console.log(data[0].qtd_questoes)
         this.qtd_questoes = data[0].qtd_questoes;
         if(data.length === 0){
           this.concluido = false;
         }
         else{
+
+          this.dadosGraficoAcertos = this.iniciaVarGraficoBarras(data);
+          this.dadosGraficoErros = this.iniciaVarGraficoBarras(data);
+          this.dadosGraficoBranco = this.iniciaVarGraficoBarras(data);
+
           data.forEach(element => {
             this.graficoAcertos(element.id_regiao, element.qtd_certas, element.porcentagem_certas, element.volume_incidencias);
             this.graficoErros(element.id_regiao, element.qtd_erradas, element.porcentagem_erradas, element.volume_incidencias);
             this.graficoBranco(element.id_regiao, element.qtd_branco_invalidas, element.porcentagem_branco_invalida, element.volume_incidencias);
           });
-          
-          for(let i =0; i<5; i++){
-            this.dadosGraficoAcertos[i].series.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
-            this.dadosGraficoErros[i].series.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
-            this.dadosGraficoBranco[i].series.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
-          }
 
           this.concluido = true;
         }
@@ -81,12 +77,13 @@ export class ResultadosComponent implements OnInit {
   }
 
   graficoAcertos(regiao, qtd_certas, porcentagem, volume_incidencias){
-    var index = this.dadosGraficoAcertos[regiao-1].series.findIndex(serie => serie.name === qtd_certas + " (" + porcentagem + "%)");
+    let indiceRegiao = this.dadosGraficoAcertos.findIndex(reg => reg.name === regiao)
+    let index = this.dadosGraficoAcertos[indiceRegiao].series.findIndex(serie => serie.name === qtd_certas + " (" + porcentagem + "%)");
     if(index !== -1){
-      this.dadosGraficoAcertos[regiao-1].series[index].value =  this.dadosGraficoAcertos[regiao-1].series[index].value + volume_incidencias
+      this.dadosGraficoAcertos[indiceRegiao].series[index].value =  this.dadosGraficoAcertos[indiceRegiao].series[index].value + volume_incidencias
     }
     else {
-      this.dadosGraficoAcertos[regiao-1].series.push({
+      this.dadosGraficoAcertos[indiceRegiao].series.push({
         "name": String(qtd_certas + " (" + porcentagem + "%)"),
         "value": volume_incidencias
       });
@@ -94,12 +91,13 @@ export class ResultadosComponent implements OnInit {
   }
 
   graficoErros(regiao, qtd_erradas, porcentagem, volume_incidencias){
-    var index = this.dadosGraficoErros[regiao-1].series.findIndex(serie => serie.name === qtd_erradas + " (" + porcentagem + "%)");
+    let indiceRegiao = this.dadosGraficoAcertos.findIndex(reg => reg.name === regiao)
+    let index = this.dadosGraficoErros[indiceRegiao].series.findIndex(serie => serie.name === qtd_erradas + " (" + porcentagem + "%)");
     if(index !== -1){
-      this.dadosGraficoErros[regiao-1].series[index].value =  this.dadosGraficoErros[regiao-1].series[index].value + volume_incidencias
+      this.dadosGraficoErros[indiceRegiao].series[index].value =  this.dadosGraficoErros[indiceRegiao].series[index].value + volume_incidencias
     }
     else {
-      this.dadosGraficoErros[regiao-1].series.push({
+      this.dadosGraficoErros[indiceRegiao].series.push({
         "name": String(qtd_erradas + " (" + porcentagem + "%)"),
         "value": volume_incidencias
       });
@@ -107,21 +105,21 @@ export class ResultadosComponent implements OnInit {
   }
 
   graficoBranco(regiao, qtd_branco_invalida, porcentagem, volume_incidencias){
-    console.log(qtd_branco_invalida);
-    var index = this.dadosGraficoBranco[regiao-1].series.findIndex(serie => serie.name ===  qtd_branco_invalida + " (" + porcentagem + "%)");
+    let indiceRegiao = this.dadosGraficoAcertos.findIndex(reg => reg.name === regiao)
+    let index = this.dadosGraficoBranco[indiceRegiao].series.findIndex(serie => serie.name ===  qtd_branco_invalida + " (" + porcentagem + "%)");
     if(index !== -1){
-      this.dadosGraficoBranco[regiao-1].series[index].value =  this.dadosGraficoBranco[regiao-1].series[index].value + volume_incidencias
+      this.dadosGraficoBranco[indiceRegiao].series[index].value =  this.dadosGraficoBranco[indiceRegiao].series[index].value + volume_incidencias
     }
     else {
-      this.dadosGraficoBranco[regiao-1].series.push({
+      this.dadosGraficoBranco[indiceRegiao].series.push({
         "name": String(qtd_branco_invalida + " (" + porcentagem + "%)"),
         "value": volume_incidencias
       });
     }
   }
 
-  iniciaVarGrafico(){
-    return [
+  iniciaVarGraficoBarras(dados: any[]){
+    let vet = [
       {
         "name": "Norte",
         "series": []
@@ -143,6 +141,22 @@ export class ResultadosComponent implements OnInit {
         "series": []
       },
     ]
+
+    // Verificação para criar o formato previamente para ficar em ordem na hora de apresentar ao usuário
+
+    if(dados.length != 0){
+      vet.forEach((element) => {
+        dados.forEach((data) =>{
+          if(element.series.findIndex(element => element.name ===  (data.qtd_certas + " (" + data.porcentagem_certas + "%)")) === -1)
+            element.series.push({ 
+              "name": String(data.qtd_certas + " (" + data.porcentagem_certas + "%)"),
+              "value": 0
+            });
+        })
+      })
+    }
+
+    return vet
   }
 
 }

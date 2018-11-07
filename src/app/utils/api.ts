@@ -35,4 +35,16 @@ export class Endpoinst {
     public static getResultByAnoCursoAndArea = (ano, id_curso, id_area) => {
         return `${API}/resultados/${ano}/${id_curso}/${id_area}`;
     }
+    
+    public static getResultCertasByAnoCursoAndArea = (ano, id_curso, id_area) => {
+        return `${API}/resultados/certas/${ano}/${id_curso}/${id_area}`;
+    }
+
+    public static getResultErradasByAnoCursoAndArea = (ano, id_curso, id_area) => {
+        return `${API}/resultados/erradas/${ano}/${id_curso}/${id_area}`;
+    }
+
+    public static getResultBrancoByAnoCursoAndArea = (ano, id_curso, id_area) => {
+        return `${API}/resultados/branco/${ano}/${id_curso}/${id_area}`;
+    }
 }

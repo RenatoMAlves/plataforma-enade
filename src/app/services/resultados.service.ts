@@ -18,8 +18,49 @@ export class ResultadosService {
   }
 
   public getResultByAnoCursoAndArea(ano, id_curso, id_area): Observable<any> {
-    console.log(this.headers);
     return this.http.get(Endpoinst.getResultByAnoCursoAndArea(ano, id_curso, id_area), {headers: this.headers}).pipe(
+      tap(
+        data => {
+          return {... data};
+        },
+        error => {
+          console.log(error)
+          return error;
+        }
+      )
+    )
+  }
+
+  public getResultCertasByAnoCursoAndArea(ano, id_curso, id_area): Observable<any>{
+    return this.http.get(Endpoinst.getResultCertasByAnoCursoAndArea(ano, id_curso, id_area), {headers: this.headers}).pipe(
+      tap(
+        data => {
+          return {... data};
+        },
+        error => {
+          console.log(error)
+          return error;
+        }
+      )
+    )
+  }
+
+  public getResultErradasByAnoCursoAndArea(ano, id_curso, id_area): Observable<any>{
+    return this.http.get(Endpoinst.getResultErradasByAnoCursoAndArea(ano, id_curso, id_area), {headers: this.headers}).pipe(
+      tap(
+        data => {
+          return {... data};
+        },
+        error => {
+          console.log(error)
+          return error;
+        }
+      )
+    )
+  }
+
+  public getResultBrancoByAnoCursoAndArea(ano, id_curso, id_area): Observable<any>{
+    return this.http.get(Endpoinst.getResultBrancoByAnoCursoAndArea(ano, id_curso, id_area), {headers: this.headers}).pipe(
       tap(
         data => {
           return {... data};
