@@ -47,6 +47,9 @@
       <a class="nav-link active" id="graficos-tab" data-toggle="tab" href="#graficos" role="tab" aria-controls="graficos" aria-selected="false"><i class="fas fa-chart-bar" data-toggle="tooltip" data-placement="top" title="Gráficos de Barra"></i></a>
     </li>
     <li class="nav-item">
+      <a class="nav-link" id="grafico-polar-tab" data-toggle="tab" href="#grafico-polar" role="tab" aria-controls="grafico-polar" aria-selected="true" ><i class="fas fa-chart-area" data-toggle="tooltip" data-placement="top" title="Gráfico de Polarização"></i></a>
+    </li>
+    <li class="nav-item">
       <a class="nav-link" id="tabela-tab" data-toggle="tab" href="#tabela" role="tab" aria-controls="tabela" aria-selected="true" ><i class="fas fa-table" data-toggle="tooltip" data-placement="top" title="Tabela de Resultados"></i></a>
     </li>
   </ul>
@@ -57,6 +60,10 @@
       <app-grafico-resultado *ngIf="concluido" [qtd_questoes]="qtd_questoes" label="Quantidade de Acertos" [dadosResultado]="dadosGraficoAcertos" [cores]="colorSchemeAcertos"></app-grafico-resultado>
       <app-grafico-resultado *ngIf="concluido" [qtd_questoes]="qtd_questoes" label="Quantidade de Erros" [dadosResultado]="dadosGraficoErros" [cores]="colorSchemeErros"></app-grafico-resultado>
       <app-grafico-resultado *ngIf="concluido" [qtd_questoes]="qtd_questoes" label="Quantidade de Brancos" [dadosResultado]="dadosGraficoBranco" [cores]="colorSchemeBranco"></app-grafico-resultado>
+    </div>
+    <div class="tab-pane fade text-center" id="grafico-polar" role="tabpanel" aria-labelledby="grafico-polar-tab">
+      <h4 class="text-muted mt-3" *ngIf="!concluido">Não foram encontrados resultados, por favor, altere os filtros para gerar uma nova tabela</h4>
+      <app-grafico-polar-resultado [dadosTotais]="dados" *ngIf="concluido"></app-grafico-polar-resultado>
     </div>
     <div class="tab-pane fade text-center" id="tabela" role="tabpanel" aria-labelledby="tabela-tab">
       <h4 class="text-muted mt-3" *ngIf="!concluido">Não foram encontrados resultados, por favor, altere os filtros para gerar uma nova tabela</h4>

@@ -1,0 +1,28 @@
+<div id="grafico-polar" *ngIf="concluido">
+  <div class="my-5 h-500" *ngFor="let data of dadosGrafico">
+    <h3 class="text-muted">
+      {{data.regiao}}
+    </h3>
+    <ngx-charts-polar-chart
+      class="chart-container"
+      [scheme]="colorScheme"
+      [results]="data.dados"
+      [legend]="true"
+      [legendTitle]="legenda"
+      [gradient]="false"
+      [xAxis]="false"
+      [yAxis]="true"
+      [roundDomains]="true"
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+      [gradient]="gradient"
+      [xAxisLabel]="'angle'"
+      [yAxisLabel]="'Volume de Incidências'"
+      [showGridLines]="showGridLines"
+      [rangeFillOpacity]="rangeFillOpacity"
+      [tooltipDisabled]="false"
+      [showSeriesOnHover]="true"
+      [curve]="curves['Linear Closed']">
+    </ngx-charts-polar-chart>
+  </div>
+</div>

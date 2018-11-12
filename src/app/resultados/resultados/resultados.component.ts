@@ -33,9 +33,6 @@ export class ResultadosComponent implements OnInit {
   });
 
   constructor(private resultadosService: ResultadosService) {
-    this.dadosGraficoAcertos = this.iniciaVarGraficoBarras([]);
-    this.dadosGraficoErros = this.iniciaVarGraficoBarras([]);
-    this.dadosGraficoBranco = this.iniciaVarGraficoBarras([]);
   }
 
   ngOnInit() {
