@@ -1,37 +1,76 @@
 <div class="container">
   <div class="row my-3">
     <form [formGroup]="formFiltro" (ngSubmit)="getDataByAnoCursoAndArea()">
+      <div class="col-md-4 mb-3">
+        <label for="curso">Curso</label>
+        <select class="custom-select d-block w-100" id="curso" required="" formControlName="curso">
+          <option value=1 selected>Ciência da Computação</option>
+          <option value=2>Sistemas de Informação</option>
+          <option value=3>Engenharia da Computação</option>
+          <option value="4">Psicologia</option>
+        </select>
+      </div>
       <div class="col-md-2 mb-3">
         <label for="Ano">Ano</label>
-        <select class="custom-select d-block w-100" id="Ano" required="" formControlName="ano">
+        <select *ngIf="formFiltro.controls.curso.value == '1'
+                ||
+                formFiltro.controls.curso.value == '2'
+                ||
+                formFiltro.controls.curso.value == '3'"
+                class="custom-select d-block w-100" id="Ano" required="" formControlName="ano">
           <option value=2008 selected>2008</option>
           <option value=2011>2011</option>
           <option value=2014>2014</option>
         </select>
-      </div>
-      <div class="col-md-4 mb-3">
-        <label for="curso">Curso</label>
-        <select class="custom-select d-block w-100" id="curso" required="" formControlName="curso">
-          <option value=1 selected>Ciências da Computação</option>
-          <option value=2>Sistemas de Informação</option>
-          <option value=3>Engenharia da Computação</option>
+        <select *ngIf="formFiltro.controls.curso.value == '4'" class="custom-select d-block w-100" id="Ano" required="" formControlName="ano">
+          <option value=2009 selected>2009</option>
+          <option value=2012>2012</option>
+          <option value=2015>2015</option>
         </select>
       </div>
       <div class="col-md-4 mb-3">
-        <label for="area">Area</label>
-        <select class="custom-select d-block w-100" id="area" required="" formControlName="area">
-          <option value=1 selected>Engenharia de Software</option>
-          <option value=2>Bancos de dados</option>
-          <option value=3>Lógica</option>
-          <option value=4>Tópicos Avançados de Engenharia</option>
-          <option value=5>Arquitetura de Computadores</option>
-          <option value=6>Estruturas de dados</option>
-          <option value=7>Sistemas Operacionais</option>
-          <option value=8>Teorias da Computaçao</option>
-          <option value=9>Sistemas de Informação</option>
-          <option value=10>Redes de Computadores</option>
-          <option value=11>Inteligência Artificial</option>
-          <option value=12>Computação Gráfica</option>
+        <label for="area">Área</label>
+        <select
+        *ngIf="formFiltro.controls.curso.value == '1'
+                ||
+                formFiltro.controls.curso.value == '2'
+                ||
+                formFiltro.controls.curso.value == '3'"
+        class="custom-select d-block w-100" id="area" required="" formControlName="area">
+        <option value=1 selected>Engenharia de Software</option>
+        <option value=2>Bancos de dados</option>
+        <option value=3>Lógica</option>
+        <option value=4>Tópicos Avançados de Engenharia</option>
+        <option value=5>Arquitetura de Computadores</option>
+        <option value=6>Estruturas de dados</option>
+        <option value=7>Sistemas Operacionais</option>
+        <option value=8>Teorias da Computaçao</option>
+        <option value=9>Sistemas de Informação</option>
+        <option value=10>Redes de Computadores</option>
+        <option value=11>Inteligência Artificial</option>
+        <option value=12>Computação Gráfica</option>
+      </select>
+
+        <select *ngIf="formFiltro.controls.curso.value == '4'" class="custom-select d-block w-100" id="area" required="" formControlName="area">
+          <option value=13 selected>História e Sistemas da Psicologia</option>
+          <option value=14>Antropologia</option>
+          <option value=15>Fundamentos das Medidas Psicológicas</option>
+          <option value=16>Métodos e Técnicas de Avaliação Psicológica </option>
+          <option value=17>Pesquisa em Psicologia</option>
+          <option value=18>Processos Básicos em Psicologia</option>
+          <option value=19>Psicologia do Desenvolvimento</option>
+          <option value=20>Psicologia da Personalidade</option>
+          <option value=21>Psicologia Social</option>
+          <option value=22>Psicologia Comunitária</option>
+          <option value=23>Psicologia Experimental</option>
+          <option value=24>Psicopatologia</option>
+          <option value=25>Psicologia da Saúde</option>
+          <option value=26>Psicologia da Educação</option>
+          <option value=27>Psicologia do Trabalho</option>
+          <option value=28>Psicologia nas Organizações</option>
+          <option value=29>Bases biológicas do comportamento humano</option>
+          <option value=30>Neuropsicologia</option>
+          <option value=31>Psicologia Jurídica</option>
         </select>
       </div>
       <div class="col-md-2 mb-3">

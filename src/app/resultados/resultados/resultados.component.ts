@@ -8,6 +8,17 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./resultados.component.scss']
 })
 export class ResultadosComponent implements OnInit {
+  public anosComputacao = [
+    { ano: '2008' },
+    { ano: '2011' },
+    { ano: '2014' }
+  ];
+
+  public anosPsicologia = [
+    { ano: '2009' },
+    { ano: '2012' },
+    { ano: '2015' }
+  ];
 
   private dadosGraficoAcertos: any[];
   private dadosGraficoErros: any[];
