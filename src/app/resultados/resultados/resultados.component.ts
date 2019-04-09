@@ -8,17 +8,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./resultados.component.scss']
 })
 export class ResultadosComponent implements OnInit {
-  public anosComputacao = [
-    { ano: '2008' },
-    { ano: '2011' },
-    { ano: '2014' }
-  ];
-
-  public anosPsicologia = [
-    { ano: '2009' },
-    { ano: '2012' },
-    { ano: '2015' }
-  ];
+  public loading: boolean = false;
 
   private dadosGraficoAcertos: any[];
   private dadosGraficoErros: any[];
@@ -52,6 +42,7 @@ export class ResultadosComponent implements OnInit {
 
   getDataByAnoCursoAndArea(){
     this.concluido = false;
+    this.loading = true;
 
     this.resultadosService.getResultByAnoCursoAndArea(this.formFiltro.value.ano, this.formFiltro.value.curso, this.formFiltro.value.area).subscribe(
       (data) => {
@@ -59,6 +50,7 @@ export class ResultadosComponent implements OnInit {
         this.qtd_questoes = data[0].qtd_questoes;
         if(data.length === 0){
           this.concluido = false;
+          this.loading = false;
         }
         else{
 
@@ -73,6 +65,7 @@ export class ResultadosComponent implements OnInit {
           });
 
           this.concluido = true;
+          this.loading = false;
         }
       },
       (error) => {
