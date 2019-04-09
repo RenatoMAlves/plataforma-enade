@@ -8,6 +8,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./resultados.component.scss']
 })
 export class ResultadosComponent implements OnInit {
+  public loading: boolean = false;
 
   private dadosGraficoAcertos: any[];
   private dadosGraficoErros: any[];
@@ -41,13 +42,16 @@ export class ResultadosComponent implements OnInit {
 
   getDataByAnoCursoAndArea(){
     this.concluido = false;
+    this.loading = true;
 
     this.resultadosService.getResultByAnoCursoAndArea(this.formFiltro.value.ano, this.formFiltro.value.curso, this.formFiltro.value.area).subscribe(
       (data) => {
         this.dados = data;
-        this.qtd_questoes = data[0].qtd_questoes;
+        if(data.length > 0)
+          this.qtd_questoes = data[0].qtd_questoes;
         if(data.length === 0){
           this.concluido = false;
+          this.loading = false;
         }
         else{
 
@@ -62,10 +66,12 @@ export class ResultadosComponent implements OnInit {
           });
 
           this.concluido = true;
+          this.loading = false;
         }
       },
       (error) => {
         console.log(error);
+        this.loading = false;
         
       }
     )

@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { GraficoResultadoComponent } from './grafico-resultado/grafico-resultado.component';
 import { TabelaResultadosComponent } from './tabela-resultados/tabela-resultados.component';
 import { GraficoPolarResultadoComponent } from './grafico-polar-resultado/grafico-polar-resultado.component';
+import {LoadingComponent} from '../utils/loading/loading.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,12 @@ import { GraficoPolarResultadoComponent } from './grafico-polar-resultado/grafic
     BrowserAnimationsModule,
     ReactiveFormsModule
   ],
-  declarations: [ResultadosComponent, GraficoResultadoComponent, TabelaResultadosComponent, GraficoPolarResultadoComponent]
+  declarations: [
+    ResultadosComponent,
+    GraficoResultadoComponent,
+    TabelaResultadosComponent,
+    GraficoPolarResultadoComponent,
+    LoadingComponent
+  ]
 })
 export class ResultadosModule { }
