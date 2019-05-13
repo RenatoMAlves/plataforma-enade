@@ -1,3 +1,47 @@
-<p>
-  associacao works!
-</p>
+<div class="container">
+  <div class="row my-3">
+    <div class="col-md-3">
+      <label for="Ano">Ano</label>
+      <select class="custom-select d-block w-100" id="Ano" required="">
+        <option value=2008 selected>2009</option>
+        <option value=2011>2012</option>
+        <option value=2014>2015</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <label for="curso">Curso</label>
+      <select class="custom-select d-block w-100" id="curso" required="">
+        <option value="4">Psicologia</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <button type="submit" class="btn btn-info btn-grafico">
+        Buscar Resultados
+      </button>
+    </div>
+  </div>
+
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="graficos-tab" data-toggle="tab" href="#graficos" role="tab" aria-controls="graficos" aria-selected="false"><i class="fas fa-chart-bar" data-toggle="tooltip" data-placement="top" title="Gráficos de Barra"></i></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="grafico-polar-tab" data-toggle="tab" href="#grafico-polar" role="tab" aria-controls="grafico-polar" aria-selected="true" ><i class="fas fa-chart-area" data-toggle="tooltip" data-placement="top" title="Gráfico de Polarização"></i></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="tabela-tab" data-toggle="tab" href="#tabela" role="tab" aria-controls="tabela" aria-selected="true" ><i class="fas fa-table" data-toggle="tooltip" data-placement="top" title="Tabela de Resultados"></i></a>
+    </li>
+  </ul>
+
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active text-center" id="graficos" role="tabpanel" aria-labelledby="graficos-tab">
+      a
+    </div>
+    <div class="tab-pane fade text-center" id="grafico-polar" role="tabpanel" aria-labelledby="grafico-polar-tab">
+      b
+    </div>
+    <div class="tab-pane fade text-center" id="tabela" role="tabpanel" aria-labelledby="tabela-tab">
+      c
+    </div>
+  </div>
+</div>
