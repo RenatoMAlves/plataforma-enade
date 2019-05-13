@@ -35,7 +35,16 @@
 
   <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active text-center" id="graficos" role="tabpanel" aria-labelledby="graficos-tab">
-      a
+      <div class="my-5 h-400">
+        <ngx-charts-pie-grid
+          [results]="teste"
+          [designatedTotal]="10520"
+          [animations]="true"
+          [minWidth]="200"
+        >
+
+        </ngx-charts-pie-grid>
+      </div>
     </div>
     <div class="tab-pane fade text-center" id="grafico-polar" role="tabpanel" aria-labelledby="grafico-polar-tab">
       b
@@ -45,3 +54,5 @@
     </div>
   </div>
 </div>
+
+<ng-template #template>AA</ng-template>
