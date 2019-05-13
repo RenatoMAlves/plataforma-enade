@@ -15,7 +15,7 @@ const appRoutes: Routes = [
         component: InicioComponent,
     },
     {
-        path: 'resultados',
+        path: 'resultados-agrupamento',
         component: ResultadosComponent,
     },
 ];
