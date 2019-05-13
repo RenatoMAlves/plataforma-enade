@@ -20,8 +20,7 @@ import {LoadingComponent} from '../utils/loading/loading.component';
     ResultadosComponent,
     GraficoResultadoComponent,
     TabelaResultadosComponent,
-    GraficoPolarResultadoComponent,
-    LoadingComponent
+    GraficoPolarResultadoComponent
   ]
 })
 export class ResultadosModule { }

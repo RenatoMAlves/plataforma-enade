@@ -3,6 +3,7 @@ import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { InicioComponent } from './inicio/inicio.component';
 import { ResultadosComponent } from './resultados/resultados/resultados.component';
+import {AssociacaoComponent} from './associacao/associacao/associacao.component';
 
 const appRoutes: Routes = [
     {
@@ -18,6 +19,10 @@ const appRoutes: Routes = [
         path: 'resultados-agrupamento',
         component: ResultadosComponent,
     },
+    {
+        path: 'resultados-associacao',
+        component: AssociacaoComponent
+    }
 ];
 
 @NgModule({
