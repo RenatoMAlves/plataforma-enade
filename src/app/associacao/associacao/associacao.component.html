@@ -31,7 +31,17 @@
   </ul>
 
   <div class="tab-content" id="myTabContent">
-    Total de estudantes no ano de {{ filtro.controls.ano.value }}: {{ totalResultados }}
+    <div class="row mt-1">
+      <div class="col-md-4">
+        Total de estudantes no ano de {{ filtro.controls.ano.value }}: {{ totalResultados }}
+      </div>
+      <div class="col-md-8">
+        <button class="btn btn-outline-info btn-sm offset-9">
+          <i class="fas fa-question-circle"></i>
+          Entenda os dados
+        </button>
+      </div>
+    </div>
     <div class="tab-pane fade show active text-center" id="graficos" role="tabpanel" aria-labelledby="graficos-tab">
       <div class="my-5 h-400">
         <ngx-charts-pie-grid
@@ -39,6 +49,7 @@
           [designatedTotal]="totalResultados"
           [animations]="true"
           [view]="[1150, 1150]"
+          [tooltipText]="resultados.name"
         >
         </ngx-charts-pie-grid>
       </div>
