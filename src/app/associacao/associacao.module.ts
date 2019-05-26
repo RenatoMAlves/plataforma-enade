@@ -5,7 +5,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ReactiveFormsModule} from '@angular/forms';
 import {AssociacaoComponent} from './associacao/associacao.component';
 import {LoadingComponent} from '../utils/loading/loading.component';
-import {TooltipModule} from 'ngx-bootstrap';
+import {ModalModule, TooltipModule} from 'ngx-bootstrap';
 
 @NgModule({
   imports: [
@@ -13,7 +13,8 @@ import {TooltipModule} from 'ngx-bootstrap';
     NgxChartsModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    TooltipModule
+    TooltipModule,
+    ModalModule.forRoot()
   ],
   declarations: [
     AssociacaoComponent

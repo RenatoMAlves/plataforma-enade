@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {ResultadosService} from '../../services/resultados.service';
-
+import {BsModalRef, BsModalService} from 'ngx-bootstrap';
+declare const $;
 @Component({
   selector: 'app-associacao',
   templateUrl: './associacao.component.html',
@@ -17,7 +18,8 @@ export class AssociacaoComponent implements OnInit {
 
   public totalResultados: any;
 
-  constructor(private fb: FormBuilder, private resultadosService: ResultadosService) {
+  constructor(private fb: FormBuilder,
+              private resultadosService: ResultadosService) {
     this.filtro = this.fb.group({
       ano: new FormControl('2009', Validators.required),
       curso: new FormControl('4', Validators.required)
