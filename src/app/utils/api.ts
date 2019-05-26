@@ -47,4 +47,8 @@ export class Endpoinst {
     public static getResultBrancoByAnoCursoAndArea = (ano, id_curso, id_area) => {
         return `${API}/resultados/branco/${ano}/${id_curso}/${id_area}`;
     }
+
+    public static resultadosAssociacao = (ano, curso) => {
+      return `${API}/resultados-associacao/${ano}/${curso}`;
+    }
 }
