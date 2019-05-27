@@ -1,0 +1,85 @@
+<div class="container">
+  <div class="row my-3" [formGroup]="filtro">
+    <div class="col-md-3">
+      <label for="Ano">Ano</label>
+      <select formControlName="ano" class="custom-select d-block w-100" id="Ano" required="">
+        <option value=2009 selected>2009</option>
+        <option value=2012>2012</option>
+        <option value=2015>2015</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <label for="curso">Curso</label>
+      <select formControlName="curso" class="custom-select d-block w-100" id="curso" required="">
+        <option value="4">Psicologia</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <button (click)="pegarResultados()" type="submit" class="btn btn-info btn-grafico">
+        Buscar Resultados
+      </button>
+    </div>
+  </div>
+
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="graficos-tab" data-toggle="tab" href="#graficos" role="tab" aria-controls="graficos" aria-selected="false"><i class="fas fa-chart-bar" data-toggle="tooltip" data-placement="top" title="Gráficos de Barra"></i></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="tabela-tab" data-toggle="tab" href="#tabela" role="tab" aria-controls="tabela" aria-selected="true" ><i class="fas fa-table" data-toggle="tooltip" data-placement="top" title="Tabela de Resultados"></i></a>
+    </li>
+  </ul>
+
+  <div class="tab-content" id="myTabContent">
+    <div class="row mt-1">
+      <div class="col-md-4">
+        Total de estudantes no ano de {{ filtro.controls.ano.value }}: {{ totalResultados }}
+      </div>
+      <div class="col-md-8">
+        <button class="btn btn-outline-info btn-sm offset-9">
+          <i class="fas fa-question-circle"></i>
+          Entenda os dados
+        </button>
+      </div>
+    </div>
+    <div class="tab-pane fade show active text-center" id="graficos" role="tabpanel" aria-labelledby="graficos-tab">
+      <div class="my-5 h-400">
+        <ngx-charts-pie-grid
+          [results]="resultados"
+          [designatedTotal]="totalResultados"
+          [animations]="true"
+          [view]="[1150, 1150]"
+        >
+        </ngx-charts-pie-grid>
+      </div>
+    </div>
+    <div class="tab-pane fade text-center" id="tabela" role="tabpanel" aria-labelledby="tabela">
+      <div class="my-5">
+        <div class="table-responsive">
+          <table class="table table-hover table-lg">
+            <thead class="thead-dark">
+            <tr>
+              <th>Ano</th>
+              <th>Curso</th>
+              <th>Regra</th>
+              <th>Total</th>
+              <th>Total em %</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let resultado of resultados">
+              <td>{{ filtro.controls.ano.value }}</td>
+              <td>
+                {{ filtro.controls.curso.value == '4' ? 'Psicologia' : '' }}
+              </td>
+              <td>{{ resultado?.name }}</td>
+              <td>{{ resultado?.value }}</td>
+              <td>{{ ((resultado?.value * 100) / totalResultados).toFixed(2) }}%</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

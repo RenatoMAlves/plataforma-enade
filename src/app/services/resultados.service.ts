@@ -72,4 +72,9 @@ export class ResultadosService {
       )
     )
   }
+
+  resultadosAssociacao(ano, curso) {
+    return this.http.get(Endpoinst.resultadosAssociacao(ano, curso), { headers: this.headers });
+  }
+
 }

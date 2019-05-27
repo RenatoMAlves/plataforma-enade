@@ -9,6 +9,8 @@ import { AppRoutingModule } from './app.routing.module';
 import { InicioComponent } from './inicio/inicio.component';
 import { ResultadosModule } from './resultados/resultados.module';
 import { HttpClientModule } from '@angular/common/http';
+import {AssociacaoModule} from './associacao/associacao.module';
+import {LoadingComponent} from './utils/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -16,11 +18,13 @@ import { HttpClientModule } from '@angular/common/http';
     BarraTopoComponent,
     FooterComponent,
     InicioComponent,
+    LoadingComponent
   ],
   imports: [
     HttpClientModule,
     BrowserModule,
     ResultadosModule,
+    AssociacaoModule,
     AppRoutingModule
   ],
   providers: [ResultadosService],
