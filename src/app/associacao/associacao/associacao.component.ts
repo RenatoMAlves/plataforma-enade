@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {ResultadosService} from '../../services/resultados.service';
-import {BsModalRef, BsModalService} from 'ngx-bootstrap';
-declare const $;
+import {delay} from 'q';
 @Component({
   selector: 'app-associacao',
   templateUrl: './associacao.component.html',
@@ -18,6 +17,13 @@ export class AssociacaoComponent implements OnInit {
 
   public totalResultados: any;
 
+  showXAxis = true;
+  showYAxis = true;
+  showXAxisLabel = true;
+  xAxisLabel = 'Qtd. de estudantes';
+  showYAxisLabel = true;
+  yAxisLabel = 'Antecedente => Consequente';
+
   constructor(private fb: FormBuilder,
               private resultadosService: ResultadosService) {
     this.filtro = this.fb.group({
@@ -27,16 +33,19 @@ export class AssociacaoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.pegarResultados();
+    this.pegarResultados(false);
   }
 
-  pegarResultados() {
+  async pegarResultados(esperar) {
     if (this.filtro.controls.ano.value == '2009')
       this.totalResultados = '2419';
     if (this.filtro.controls.ano.value == '2012')
       this.totalResultados = '9459';
     if (this.filtro.controls.ano.value == '2015')
       this.totalResultados = '9727';
+
+    if (esperar)
+      await delay(1000);
 
     let ano = this.filtro.controls.ano.value;
     let curso = this.filtro.controls.curso.value;
