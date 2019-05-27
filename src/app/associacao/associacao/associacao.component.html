@@ -15,7 +15,7 @@
       </select>
     </div>
     <div class="col-md-3">
-      <button (click)="pegarResultados()" type="submit" class="btn btn-info btn-grafico">
+      <button (click)="pegarResultados(false)" type="submit" class="btn btn-info btn-grafico">
         Buscar Resultados
       </button>
     </div>
@@ -25,7 +25,7 @@
     <li class="nav-item">
       <a class="nav-link active" id="graficos-tab" data-toggle="tab" href="#graficos" role="tab" aria-controls="graficos" aria-selected="false"><i class="fas fa-circle-notch" data-toggle="tooltip" data-placement="top" title="Gráficos de Torta"></i></a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" (click)="pegarResultados(true)">
       <a class="nav-link" id="graficos-bar" data-toggle="tab" href="#graficobarra" role="tab" aria-controls="graficos-bar" aria-selected="false"><i class="fas fa-chart-bar" data-toggle="tooltip" data-placement="top" title="Gráficos de Barra"></i></a>
     </li>
     <li class="nav-item">
@@ -64,9 +64,14 @@
           [results]="resultados"
           animations="true"
           barPadding="2"
-          showDataLabel="true"
-          showYAxisLabel="true"
-          yAxisLabel="Regra"
+          [xAxis]="showXAxis"
+          [yAxis]="showYAxis"
+          [showDataLabel]="true"
+          [roundDomains]="true"
+          [showXAxisLabel]="showXAxisLabel"
+          [showYAxisLabel]="showYAxisLabel"
+          [xAxisLabel]="xAxisLabel"
+          [yAxisLabel]="yAxisLabel"
         >
         </ngx-charts-bar-horizontal>
       </div>
