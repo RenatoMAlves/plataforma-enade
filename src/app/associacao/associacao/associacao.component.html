@@ -1,0 +1,276 @@
+<div class="container">
+  <div class="row my-3" [formGroup]="filtro">
+    <div class="col-md-3">
+      <label for="Ano">Ano</label>
+      <select formControlName="ano" class="custom-select d-block w-100" id="Ano" required="">
+        <option value=2009 selected>2009</option>
+        <option value=2012>2012</option>
+        <option value=2015>2015</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <label for="curso">Curso</label>
+      <select formControlName="curso" class="custom-select d-block w-100" id="curso" required="">
+        <option value="4">Psicologia</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <button (click)="pegarResultados(false)" type="submit" class="btn btn-info btn-grafico">
+        Buscar Resultados
+      </button>
+    </div>
+  </div>
+
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="graficos-tab" data-toggle="tab" href="#graficos" role="tab" aria-controls="graficos" aria-selected="false"><i class="fas fa-circle-notch" data-toggle="tooltip" data-placement="top" title="Gráficos de Torta"></i></a>
+    </li>
+    <li class="nav-item" (click)="pegarResultados(true)">
+      <a class="nav-link" id="graficos-bar" data-toggle="tab" href="#graficobarra" role="tab" aria-controls="graficos-bar" aria-selected="false"><i class="fas fa-chart-bar" data-toggle="tooltip" data-placement="top" title="Gráficos de Barra"></i></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="tabela-tab" data-toggle="tab" href="#tabela" role="tab" aria-controls="tabela" aria-selected="true" ><i class="fas fa-table" data-toggle="tooltip" data-placement="top" title="Tabela de Resultados"></i></a>
+    </li>
+  </ul>
+
+  <div class="tab-content" id="myTabContent">
+    <div class="row mt-1">
+      <div class="col-md-4">
+        Total de estudantes no ano de {{ filtro.controls.ano.value }}: {{ totalResultados }}
+      </div>
+      <div class="col-md-8">
+        <div class="row offset-8">
+          <button data-toggle="modal" data-target="#entenda" class="btn btn-outline-info btn-sm ">
+            <i class="fas fa-question-circle"></i>
+          </button>
+          <button data-toggle="modal" data-target="#dicionario" class="btn btn-outline-info btn-sm ml-1">
+            Dicionário de questões
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane fade show active text-center" id="graficos" role="tabpanel" aria-labelledby="graficos-tab">
+      <div class="my-5 h-400">
+        <ngx-charts-pie-grid
+          [results]="resultados"
+          [designatedTotal]="totalResultados"
+          [animations]="true"
+          [view]="[1150, 1150]"
+        >
+        </ngx-charts-pie-grid>
+      </div>
+    </div>
+
+    <div class="tab-pane fade show text-center" id="graficobarra" role="tabpanel" aria-labelledby="graficos-tab">
+      <div class="my-5 h-700">
+        <ngx-charts-bar-horizontal
+          class="my-5 h-700"
+          [results]="resultados"
+          animations="true"
+          barPadding="2"
+          [xAxis]="showXAxis"
+          [yAxis]="showYAxis"
+          [showDataLabel]="true"
+          [roundDomains]="true"
+          [showXAxisLabel]="showXAxisLabel"
+          [showYAxisLabel]="showYAxisLabel"
+          [xAxisLabel]="xAxisLabel"
+          [yAxisLabel]="yAxisLabel"
+        >
+        </ngx-charts-bar-horizontal>
+      </div>
+    </div>
+
+    <div class="tab-pane fade text-center" id="tabela" role="tabpanel" aria-labelledby="tabela">
+      <div class="my-5">
+        <div class="table-responsive">
+          <table class="table table-hover table-lg">
+            <thead class="thead-dark">
+            <tr>
+              <th>Ano</th>
+              <th>Curso</th>
+              <th>Regra</th>
+              <th>Total</th>
+              <th>Total em %</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let resultado of resultados">
+              <td>{{ filtro.controls.ano.value }}</td>
+              <td>
+                {{ filtro.controls.curso.value == '4' ? 'Psicologia' : '' }}
+              </td>
+              <td>{{ resultado?.name }}</td>
+              <td>{{ resultado?.value }}</td>
+              <td>{{ ((resultado?.value * 100) / totalResultados).toFixed(2) }}%</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="entenda" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Regras de associação</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Os dados apresentados foram gerados através da utilização da tarefa de associação, uma das mais famosas da área
+          de mineração de dados. A regra é dada da seguinte forma: <strong>antecedente => consequente</strong>.</p>
+        <p>Por exemplo, a regra: <strong>[Sudeste,Universidade => 4]</strong> significa que, se um estudante é de uma
+          universidade da região sudeste, portanto ela teve CPC 4 em uma quantidade X de vezes.</p>
+        <p>Todos os consequentes dos resultados apresentados são '4'. O objetivo deste estudo foi associar os perfis
+          dos estudantes com as instituições de ensino com CPC nota 4 e 5. Não foram geradas regras com consequente 5
+          devido ao baixo número de universidades que alcançaram a nota máxima.</p>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="dicionario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Dicionário de questões</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Foram selecionadas questões da parte socioeconômica do questionário do estudante para agregar os perfis
+          dos estudantes. Para o ano de 2009 e 2012 questões foram:</p>
+        <ul>
+          <li>
+            QE_I9 - Você recebe ou recebeu algum tipo de bolsa de estudos ou financiamento para custear as mensalidades
+            do curso?
+            <ol type="A">
+              <li>Sim.</li>
+              <li>Não se aplica - meu curso é gratuito.</li>
+              <li>Não.</li>
+            </ol>
+          </li>
+          <li>
+            QE_I17 - Em que tipo de escola você cursou o ensino médio?
+            <ol type="A">
+              <li>Todo em escola pública.</li>
+              <li>Todo em escola privada (particular).</li>
+              <li>A maior parte em escola pública.</li>
+              <li>A maior parte em escola privada (particular).</li>
+              <li>Metade escola pública e metade em escola privada (particular).</li>
+            </ol>
+          </li>
+          <li>
+            QE_I35 - Os conteúdos trabalhados pela maioria dos professores são coerentes com os que foram apresentados
+            nos respectivos planos de ensino?
+            <ol type="A">
+              <li>Sim.</li>
+              <li>Sim, somente em parte.</li>
+              <li>Nenhum.</li>
+              <li>Não sei responder.</li>
+            </ol>
+          </li>
+          <li>
+            QE_I46 - Você participou de programas de iniciação científica? Como foi a contribuição para a sua formação?
+            <ol type="A">
+              <li>Sim, participei e teve grande contribuição.</li>
+              <li>Sim, participei e teve pouca contribuição.</li>
+              <li>Sim, participei e não percebi nenhuma contribuição.</li>
+              <li>Não participei, mas a instituição oferece.</li>
+              <li>A instituição não oferece esse tipo de programa.</li>
+            </ol>
+          </li>
+          <li>
+            QE_I50 - Como você avalia o nível de exigência do curso?
+            <ol type="A">
+              <li>Deveria exigir muito mais.</li>
+              <li>Deveria exigir um pouco mais.</li>
+              <li>Exige na medida certa.</li>
+              <li>Deveria exigir um pouco menos.</li>
+              <li>Deveria exigir muito menos.</li>
+            </ol>
+          </li>
+        </ul>
+        <hr class="dashed">
+        <p>No ano de 2015, as perguntas selecionadas foram:</p>
+        <hr class="dashed">
+        <ul>
+          <li>
+            QE_10 - Qual alternativa a seguir melhor descreve sua situação de trabalho (exceto estágio ou bolsas)?
+            <ol type="A">
+              <li>Não estou trabalhando.</li>
+              <li>Trabalho eventualmente.</li>
+              <li>Trabalho até 20 horas semanais.</li>
+              <li>Trabalho de 21 a 39 horas semanais.</li>
+              <li>Trabalho 40 horas semanais ou mais.</li>
+            </ol>
+          </li>
+          <li>
+            QE_11 - Que tipo de bolsa de estudos ou financiamento do curso você recebeu para custear todas ou a
+            maior parte das mensalidades? No caso de haver mais de uma opção, marcar apenas a bolsa de maior duração.
+            <ol type="A">
+              <li>Nenhum, pois meu curso é gratuito.</li>
+              <li>Nenhum, embora meu curso não seja gratuito.</li>
+              <li>ProUni integral.</li>
+              <li>ProUni parcial, apenas.</li>
+              <li>FIES, apenas.</li>
+              <li>ProUni Parcial e FIES.</li>
+              <li>Bolsa oferecida por governo estadual, distrital ou municipal.</li>
+              <li>Bolsa oferecida pela própria instituição.</li>
+              <li>Bolsa oferecida por outra entidade (empresa, ONG, outra).</li>
+              <li>Financiamento oferecido pela própria instituição.</li>
+              <li>Financiamento bancário.</li>
+            </ol>
+          </li>
+          <li>
+            QE_14 - Durante o curso de graduação você participou de programas e/ou atividades curriculares no exterior?
+            <ol type="A">
+              <li>Não participei.</li>
+              <li>Sim, Programa Ciência sem Fronteiras.</li>
+              <li>Sim, programa de intercâmbio financiado pelo Governo Federal (Marca; Brafitec; PLI; outro).</li>
+              <li>Sim, programa de intercâmbio financiado pelo Governo Estadual.</li>
+              <li>Sim, programa de intercâmbio da minha instituição.</li>
+              <li>Sim, outro intercâmbio não institucional.</li>
+            </ol>
+          </li>
+          <li>
+            QE_15 - Seu ingresso no curso de graduação se deu por meio de políticas de ação afirmativa ou inclusão
+            social?
+            <ol type="A">
+              <li>Não.</li>
+              <li>Sim, por critério étnico-racial.</li>
+              <li>Sim, por critério de renda.</li>
+              <li>Sim, por ter estudado em escola pública ou particular com bolsa de estudos.</li>
+              <li>Sim, por sistema que combina dois ou mais critérios anteriores.</li>
+              <li>Sim, por sistema diferente dos anteriores.</li>
+            </ol>
+          </li>
+          <li>
+            QE_18 - Qual modalidade de ensino médio você concluiu?
+            <ol type="A">
+              <li>Todo em escola pública.</li>
+              <li>Todo em escola privada (particular).</li>
+              <li>Todo no exterior.</li>
+              <li>A maior parte em escola pública.</li>
+              <li>A maior parte em escola privada (particular).</li>
+              <li>Parte no Brasil e parte no exterior.</li>
+            </ol>
+          </li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
