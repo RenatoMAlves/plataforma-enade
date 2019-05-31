@@ -45,7 +45,7 @@ export class AssociacaoComponent implements OnInit {
       this.totalResultados = '9727';
 
     if (esperar)
-      await delay(1000);
+      await delay(700);
 
     let ano = this.filtro.controls.ano.value;
     let curso = this.filtro.controls.curso.value;

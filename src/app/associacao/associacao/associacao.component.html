@@ -23,10 +23,7 @@
 
   <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item">
-      <a class="nav-link active" id="graficos-tab" data-toggle="tab" href="#graficos" role="tab" aria-controls="graficos" aria-selected="false"><i class="fas fa-circle-notch" data-toggle="tooltip" data-placement="top" title="Gráficos de Torta"></i></a>
-    </li>
-    <li class="nav-item" (click)="pegarResultados(true)">
-      <a class="nav-link" id="graficos-bar" data-toggle="tab" href="#graficobarra" role="tab" aria-controls="graficos-bar" aria-selected="false"><i class="fas fa-chart-bar" data-toggle="tooltip" data-placement="top" title="Gráficos de Barra"></i></a>
+      <a class="nav-link active" id="graficos-bar" data-toggle="tab" href="#graficobarra" role="tab" aria-controls="graficos-bar" aria-selected="false"><i class="fas fa-chart-bar" data-toggle="tooltip" data-placement="top" title="Gráficos de Barra"></i></a>
     </li>
     <li class="nav-item">
       <a class="nav-link" id="tabela-tab" data-toggle="tab" href="#tabela" role="tab" aria-controls="tabela" aria-selected="true" ><i class="fas fa-table" data-toggle="tooltip" data-placement="top" title="Tabela de Resultados"></i></a>
@@ -49,19 +46,8 @@
         </div>
       </div>
     </div>
-    <div class="tab-pane fade show active text-center" id="graficos" role="tabpanel" aria-labelledby="graficos-tab">
-      <div class="my-5 h-400">
-        <ngx-charts-pie-grid
-          [results]="resultados"
-          [designatedTotal]="totalResultados"
-          [animations]="true"
-          [view]="[1150, 1150]"
-        >
-        </ngx-charts-pie-grid>
-      </div>
-    </div>
 
-    <div class="tab-pane fade show text-center" id="graficobarra" role="tabpanel" aria-labelledby="graficos-tab">
+    <div class="tab-pane fade show active text-center" id="graficobarra" role="tabpanel" aria-labelledby="graficos-tab">
       <div class="my-5 h-700">
         <ngx-charts-bar-horizontal
           class="my-5 h-700"
